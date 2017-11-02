@@ -12,24 +12,32 @@ public class GrammarNode : MonoBehaviour {
     GrammarRuleSet RuleSet;
     GrammarRule Rule;
 
-    GrammarNode[] Parents;
-    GrammarNode[] Children;
+    public List<GrammarNode> Parents;
+    public List<GrammarNode> Children;
+    public Vector3 RelativePosition; // Its Position in relation to the parent or its world position if no parent
 
 	// Use this for initialization
-	void Start () {
+	void Start () {       
+	}
+
+    public void Init()
+    {
         MasterDungeon = GameObject.FindGameObjectWithTag("MasterDungeon").GetComponent<GrammarDungeon>();
         RuleSet = GameObject.FindGameObjectWithTag("RuleSet").GetComponent<GrammarRuleSet>();
-	}
+        Parents = new List<GrammarNode>();
+        Children = new List<GrammarNode>();
+        RelativePosition = Vector3.zero;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
-    void ProcessRule()
+    public void ProcessRule()
     {
         // If there is no rule, then why process one?
-        if(Rule == null)
+        if(Terminal || Rule == null)
         {
             return;
         }
@@ -42,8 +50,20 @@ public class GrammarNode : MonoBehaviour {
             GrammarRule.NodeInfo NodeInfo = Rule.ReplacementNodes[i];
             GameObject tempObject = new GameObject();
             tempObject.AddComponent<GrammarNode>();
+            tempObject.GetComponent<GrammarNode>().Init();
+            tempObject.GetComponent<GrammarNode>().RelativePosition = NodeInfo.Offset;
             tempObject.GetComponent<GrammarNode>().Symbol = NodeInfo.Symbol;
-            tempObject.transform.position = tempObject.transform.position + NodeInfo.Offset;
+            tempObject.name = tempObject.GetComponent<GrammarNode>().Symbol.ToString();
+
+            if (Parents.Count == 0)
+            {
+                tempObject.transform.position = tempObject.GetComponent<GrammarNode>().RelativePosition;
+            }
+            else
+            {
+                tempObject.transform.position = Parents[0].transform.position + tempObject.GetComponent<GrammarNode>().RelativePosition;
+            }
+            
             if(NodeInfo.AttachParent && AttachParentTo == null)
             {
                 AttachParentTo = tempObject.GetComponent<GrammarNode>();
@@ -63,6 +83,9 @@ public class GrammarNode : MonoBehaviour {
             NewConnect.p1 = MasterDungeon.GetNodeID() + Rule.Connections[i].p1 + 1;
             NewConnect.p2 = MasterDungeon.GetNodeID() + Rule.Connections[i].p2 + 1;
             MasterDungeon.AddConnection(NewConnect);
+
+            LocalNodes[Rule.Connections[i].p1].AddChild(LocalNodes[Rule.Connections[i].p2]);
+            LocalNodes[Rule.Connections[i].p2].AddParent(LocalNodes[Rule.Connections[i].p1]);
         }
         // Add Nodes to Dungeon List
         for(int i = 0; i < LocalNodes.Length; ++i)
@@ -70,31 +93,77 @@ public class GrammarNode : MonoBehaviour {
             MasterDungeon.AddNode(LocalNodes[i]);
         }
         // Hook up the parent nodes
-        for(int i = 0; i < Parents.Length; ++i)
+        foreach(GrammarNode _Parent in Parents)
         {
-            
+            AttachParentTo.AddParent(_Parent);
+            MasterDungeon.AddConnection(_Parent, AttachParentTo);
+            _Parent.RemoveChild(this);
+            _Parent.AddChild(AttachParentTo);
         }
         // Hook up the children nodes
-        for (int i = 0; i < Parents.Length; ++i)
+        foreach (GrammarNode _Child in Children)
         {
-
+            AttachChildrenTo.AddChild(_Child);
+            MasterDungeon.AddConnection(AttachChildrenTo, _Child);
+            _Child.RemoveParent(this);
+            _Child.AddParent(AttachChildrenTo);
         }
+        //Get rid of the original node
+        MasterDungeon.RemoveConnection(this);
+        MasterDungeon.RemoveNode(this);
+        Destroy(this.gameObject);
     }
 
     // Check if the node can be replaced and gets rule reference
-    bool CheckRules()
+    public bool CheckRules()
     {
         Rule = RuleSet.GetRule(Symbol);
         if(Rule == null)
         {
-            Terminal = false;
+            Terminal = true;
             return true;
         }
         else
         {
-            Terminal = true;
+            Terminal = false;
             return false;
         }
         
+    }
+
+    public void Reposition()
+    {
+        if(Parents.Count == 0)
+        {
+            transform.position = RelativePosition;
+        }
+        else
+        {
+            transform.position = Parents[0].transform.position + RelativePosition;
+        }
+        foreach(GrammarNode _Node in Children)
+        {
+            _Node.Reposition();
+        }
+    }
+
+    public void AddParent(GrammarNode _NewParent)
+    {
+        Parents.Add(_NewParent);
+    }
+
+    public void RemoveParent(GrammarNode _ParentToRemove)
+    {
+        Parents.Remove(_ParentToRemove);
+    }
+
+    public void AddChild(GrammarNode _NewChild)
+    {
+        Children.Add(_NewChild);
+    }
+
+    public void RemoveChild(GrammarNode _ChildToRemove)
+    {
+        Children.Remove(_ChildToRemove);
     }
 }

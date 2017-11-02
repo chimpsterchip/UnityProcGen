@@ -12,8 +12,11 @@ public class GrammarRule : MonoBehaviour {
     {
         public int id;
         public GrammarRuleSet.Symbol Symbol;
+        [Tooltip("Offset from its parent")]
         public Vector3 Offset;
+        [Tooltip("Attach the original nodes parents to this node")]
         public bool AttachParent;
+        [Tooltip("Attach the original nodes children to this node")]
         public bool AttachChild;
     }
 

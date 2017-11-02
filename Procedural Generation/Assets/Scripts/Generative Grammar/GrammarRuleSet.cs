@@ -29,13 +29,22 @@ public class GrammarRuleSet : MonoBehaviour {
 
     public GrammarRule GetRule(Symbol _Symbol)
     {
-        for(int i = 0; i < Rules.Length; ++i)
+        List<GrammarRule> MatchingRules = new List<GrammarRule>();
+        for (int i = 0; i < Rules.Length; ++i)
         {
-            if(Rules[i].ConditionSymbol == _Symbol)
+            if (Rules[i].ConditionSymbol == _Symbol)
             {
-                return Rules[i];
+                MatchingRules.Add(Rules[i]);
             }
         }
-        return null;
+        if (MatchingRules.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            int RandInt = Random.Range(0, MatchingRules.Count - 1);
+            return MatchingRules[RandInt];
+        }
     }
 }
