@@ -17,16 +17,17 @@ public class GrammarNode : MonoBehaviour {
     public Vector3 RelativePosition; // Its Position in relation to the parent or its world position if no parent
 
 	// Use this for initialization
-	void Start () {       
+	void Start () {
+        Init();
 	}
 
     public void Init()
     {
         MasterDungeon = GameObject.FindGameObjectWithTag("MasterDungeon").GetComponent<GrammarDungeon>();
         RuleSet = GameObject.FindGameObjectWithTag("RuleSet").GetComponent<GrammarRuleSet>();
-        Parents = new List<GrammarNode>();
-        Children = new List<GrammarNode>();
-        RelativePosition = Vector3.zero;
+        if(Parents == null) Parents = new List<GrammarNode>();
+        if(Children == null) Children = new List<GrammarNode>();
+        //RelativePosition = Vector3.zero;
     }
 	
 	// Update is called once per frame
@@ -54,6 +55,9 @@ public class GrammarNode : MonoBehaviour {
             tempObject.GetComponent<GrammarNode>().RelativePosition = NodeInfo.Offset;
             tempObject.GetComponent<GrammarNode>().Symbol = NodeInfo.Symbol;
             tempObject.name = tempObject.GetComponent<GrammarNode>().Symbol.ToString();
+            //Add Cellular Automata
+            tempObject.AddComponent<CellularAutomata>();
+            tempObject.GetComponent<CellularAutomata>().Floor = MasterDungeon.FloorTile;
 
             if (Parents.Count == 0)
             {
@@ -68,7 +72,7 @@ public class GrammarNode : MonoBehaviour {
             {
                 AttachParentTo = tempObject.GetComponent<GrammarNode>();
             }
-            else if(NodeInfo.AttachChild && AttachChildrenTo == null)
+            if(NodeInfo.AttachChild && AttachChildrenTo == null)
             {
                 AttachChildrenTo = tempObject.GetComponent<GrammarNode>();
             }
@@ -109,6 +113,7 @@ public class GrammarNode : MonoBehaviour {
             _Child.AddParent(AttachChildrenTo);
         }
         //Get rid of the original node
+        AttachParentTo.GetComponent<GrammarNode>().RelativePosition = this.RelativePosition;
         MasterDungeon.RemoveConnection(this);
         MasterDungeon.RemoveNode(this);
         Destroy(this.gameObject);
@@ -165,5 +170,15 @@ public class GrammarNode : MonoBehaviour {
     public void RemoveChild(GrammarNode _ChildToRemove)
     {
         Children.Remove(_ChildToRemove);
+    }
+
+    public List<GrammarNode> GetChildren()
+    {
+        return Children;
+    }
+
+    public List<GrammarNode> GetParents()
+    {
+        return Parents;
     }
 }

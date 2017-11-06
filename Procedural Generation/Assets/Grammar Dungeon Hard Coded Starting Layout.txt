@@ -1,0 +1,64 @@
+        //GameObject startNode = new GameObject();
+        //startNode.name = "Entrance";
+        ////Add Grammar Node
+        //startNode.AddComponent<GrammarNode>();
+        //startNode.GetComponent<GrammarNode>().Init();
+        //startNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(0f, 0f, 0f);
+        //startNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.entrance;
+        ////Add Cellular Automata
+        //startNode.AddComponent<CellularAutomata>();
+        //startNode.GetComponent<CellularAutomata>().Floor = FloorTile;
+
+        //GameObject obstacleNode = new GameObject();
+        //obstacleNode.name = "Obstacle";
+        ////Add Grammar Node
+        //obstacleNode.AddComponent<GrammarNode>();
+        //obstacleNode.GetComponent<GrammarNode>().Init();
+        //obstacleNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(17f, 0f, 0f);
+        //obstacleNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.tSplitObstacle;
+        ////Add Cellular Automata
+        //obstacleNode.AddComponent<CellularAutomata>();
+        //obstacleNode.GetComponent<CellularAutomata>().Floor = FloorTile;
+
+        //GameObject exitNode = new GameObject();
+        //exitNode.name = "Exit";
+        ////Add Grammar Node
+        //exitNode.AddComponent<GrammarNode>();
+        //exitNode.GetComponent<GrammarNode>().Init();
+        //exitNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(17f, 0f, 0f);
+        //exitNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.exit;
+        ////Add Cellular Automata
+        //exitNode.AddComponent<CellularAutomata>();
+        //exitNode.GetComponent<CellularAutomata>().Floor = FloorTile;
+
+        ////Sort out child and parents
+        //startNode.GetComponent<GrammarNode>().AddChild(obstacleNode.GetComponent<GrammarNode>());
+        //obstacleNode.GetComponent<GrammarNode>().AddParent(startNode.GetComponent<GrammarNode>());
+        //obstacleNode.GetComponent<GrammarNode>().AddChild(exitNode.GetComponent<GrammarNode>());
+        //exitNode.GetComponent<GrammarNode>().AddParent(obstacleNode.GetComponent<GrammarNode>());
+
+        ////Reposition nodes
+        //startNode.GetComponent<GrammarNode>().Reposition();
+        //obstacleNode.GetComponent<GrammarNode>().Reposition();
+        //exitNode.GetComponent<GrammarNode>().Reposition();
+
+        ////Add nodes to node list
+        //Nodes.Add(startNode.GetComponent<GrammarNode>());
+        //Nodes.Add(obstacleNode.GetComponent<GrammarNode>());
+        //Nodes.Add(exitNode.GetComponent<GrammarNode>());
+
+        ////Hook up the connections between the nodes
+        //NodeConnection newConnection;
+        //newConnection.Node1 = startNode.GetComponent<GrammarNode>();
+        //newConnection.Node2 = obstacleNode.GetComponent<GrammarNode>();
+        //newConnection.p1 = -1;
+        //newConnection.p2 = -1;
+
+        //NodeConnections.Add(newConnection);
+
+        //newConnection.Node1 = obstacleNode.GetComponent<GrammarNode>();
+        //newConnection.Node2 = exitNode.GetComponent<GrammarNode>();
+        //newConnection.p1 = -1;
+        //newConnection.p2 = -1;
+
+        //NodeConnections.Add(newConnection);

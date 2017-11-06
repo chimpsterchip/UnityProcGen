@@ -55,12 +55,17 @@ MonoBehaviour:
   ReplacementNodes:
   - id: 0
     Symbol: 2
-    Offset: {x: 5, y: 0, z: 0}
+    Offset: {x: 17, y: 0, z: 0}
     AttachParent: 1
     AttachChild: 0
   - id: 1
     Symbol: 2
-    Offset: {x: 0, y: 0, z: 5}
+    Offset: {x: 0, y: 0, z: 17}
+    AttachParent: 0
+    AttachChild: 0
+  - id: 2
+    Symbol: 4
+    Offset: {x: 17, y: 0, z: 0}
     AttachParent: 0
     AttachChild: 1
   Connections:
@@ -68,5 +73,9 @@ MonoBehaviour:
     Node2: {fileID: 0}
     p1: 0
     p2: 1
+  - Node1: {fileID: 0}
+    Node2: {fileID: 0}
+    p1: 1
+    p2: 2
   StartNode: 0
   EndNode: 1

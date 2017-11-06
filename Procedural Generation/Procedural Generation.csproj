@@ -90,6 +90,9 @@
     <Compile Include="Assets\Scripts\Generative Grammar\GrammarRule.cs" />
     <Compile Include="Assets\Scripts\Generative Grammar\GrammarRuleSet.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Grammar Dungeon Hard Coded Starting Layout.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

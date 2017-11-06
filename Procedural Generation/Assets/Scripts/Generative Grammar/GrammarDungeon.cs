@@ -14,6 +14,7 @@ public class GrammarDungeon : MonoBehaviour {
         public int p2;
     }
 
+    public GameObject FloorTile;
     public List<NodeConnection> NodeConnections;
     public List<GrammarNode> Nodes;
 
@@ -21,61 +22,12 @@ public class GrammarDungeon : MonoBehaviour {
 
     private void Start()
     {
-        NodeConnections = new List<NodeConnection>();
-        Nodes = new List<GrammarNode>();
+        //NodeConnections = new List<NodeConnection>();
+        //Nodes = new List<GrammarNode>();
 
-        GameObject startNode = new GameObject();
-        startNode.name = "Entrance";
-        //startNode.transform.position = new Vector3(0f, 0f, 0f);
-        startNode.AddComponent<GrammarNode>();
-        startNode.GetComponent<GrammarNode>().Init();
-        startNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(0f, 0f, 0f);
-        startNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.entrance;
-      
-
-        GameObject obstacleNode = new GameObject();
-        obstacleNode.name = "Obstacle";
-        //obstacleNode.transform.position = new Vector3(5f, 0f, 0f);
-        obstacleNode.AddComponent<GrammarNode>();
-        obstacleNode.GetComponent<GrammarNode>().Init();
-        obstacleNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(5f, 0f, 0f);
-        obstacleNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.obstacle;
-
-        GameObject exitNode = new GameObject();
-        exitNode.name = "Exit";
-        //exitNode.transform.position = new Vector3(10f, 0f, 0f);
-        exitNode.AddComponent<GrammarNode>();
-        exitNode.GetComponent<GrammarNode>().Init();
-        exitNode.GetComponent<GrammarNode>().RelativePosition = new Vector3(5f, 0f, 0f);
-        exitNode.GetComponent<GrammarNode>().Symbol = GrammarRuleSet.Symbol.exit;
-
-        startNode.GetComponent<GrammarNode>().AddChild(obstacleNode.GetComponent<GrammarNode>());
-        obstacleNode.GetComponent<GrammarNode>().AddParent(startNode.GetComponent<GrammarNode>());
-        obstacleNode.GetComponent<GrammarNode>().AddChild(exitNode.GetComponent<GrammarNode>());
-        exitNode.GetComponent<GrammarNode>().AddParent(obstacleNode.GetComponent<GrammarNode>());
-
-        startNode.GetComponent<GrammarNode>().Reposition();
-        obstacleNode.GetComponent<GrammarNode>().Reposition();
-        exitNode.GetComponent<GrammarNode>().Reposition();
-
-        Nodes.Add(startNode.GetComponent<GrammarNode>());
-        Nodes.Add(obstacleNode.GetComponent<GrammarNode>());
-        Nodes.Add(exitNode.GetComponent<GrammarNode>());
-
-        NodeConnection newConnection;
-        newConnection.Node1 = startNode.GetComponent<GrammarNode>();
-        newConnection.Node2 = obstacleNode.GetComponent<GrammarNode>();
-        newConnection.p1 = -1;
-        newConnection.p2 = -1;
-
-        NodeConnections.Add(newConnection);
-
-        newConnection.Node1 = obstacleNode.GetComponent<GrammarNode>();
-        newConnection.Node2 = exitNode.GetComponent<GrammarNode>();
-        newConnection.p1 = -1;
-        newConnection.p2 = -1;
-
-        NodeConnections.Add(newConnection);
+        RenameNodes();
+        RepositionNodes();
+        RegenerateRooms();
     }
 
     private void Update()
@@ -108,6 +60,22 @@ public class GrammarDungeon : MonoBehaviour {
     public void RepositionNodes()
     {
         Nodes[0].Reposition();
+    }
+
+    public void RegenerateRooms()
+    {
+        foreach(GrammarNode Node in Nodes)
+        {
+            Node.gameObject.GetComponent<CellularAutomata>().GenerateRoom();
+        }
+    }
+
+    public void RenameNodes()
+    {
+        foreach(GrammarNode Node in Nodes)
+        {
+            Node.gameObject.name = Node.Symbol.ToString();
+        }
     }
 
     public void AddNode(GrammarNode _NewNode)
@@ -168,7 +136,7 @@ public class GrammarDungeon : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        if (Application.isPlaying && this.enabled)
+        if (Application.isEditor && this.enabled)
         {
             foreach(NodeConnection i in NodeConnections)
             {

@@ -7,11 +7,13 @@ public class GrammarRuleSet : MonoBehaviour {
     public enum Symbol
     {
         entrance,
+        emptyRoom,
         obstacle,
         monster,
         tSplitObstacle,
         reward,
         chest,
+        bossFight,
         exit
     };
 

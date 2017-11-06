@@ -55,17 +55,17 @@ MonoBehaviour:
   ReplacementNodes:
   - id: 0
     Symbol: 5
-    Offset: {x: 5, y: 0, z: 0}
+    Offset: {x: 17, y: 0, z: 0}
     AttachParent: 1
     AttachChild: 1
   - id: 1
     Symbol: 2
-    Offset: {x: 0, y: 0, z: 5}
+    Offset: {x: 0, y: 0, z: 17}
     AttachParent: 0
     AttachChild: 0
   - id: 2
     Symbol: 2
-    Offset: {x: 0, y: 0, z: -5}
+    Offset: {x: 0, y: 0, z: -17}
     AttachParent: 0
     AttachChild: 0
   Connections:

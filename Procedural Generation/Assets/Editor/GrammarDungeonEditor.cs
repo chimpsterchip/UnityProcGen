@@ -14,6 +14,10 @@ public class GrammarDungeonEditor : Editor {
         {
             Dungeon.ProcessNodes();
         }
+        if (GUILayout.Button("Regenerate Rooms"))
+        {
+            Dungeon.RegenerateRooms();
+        }
     }
 
 }
