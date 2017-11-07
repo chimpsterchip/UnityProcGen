@@ -14,6 +14,8 @@ public class GrammarDungeon : MonoBehaviour {
         public int p2;
     }
 
+    public bool DebugMode = false;
+
     public GameObject FloorTile;
     public List<NodeConnection> NodeConnections;
     public List<GrammarNode> Nodes;
@@ -39,22 +41,28 @@ public class GrammarDungeon : MonoBehaviour {
         Debug.Log("Processing Nodes...");
 
         Debug.Log("...Checking Rules...");
+
         foreach (GrammarNode _node in Nodes)
         {
             _node.CheckRules();           
         }
+
         Debug.Log("......Done");
         Debug.Log("...Processing Rules...");
+
         List<GrammarNode> ProcessNodes = new List<GrammarNode>();
         ProcessNodes.AddRange(Nodes);
-        foreach (GrammarNode _node in ProcessNodes) // _node.ProcessRule modifies the Nodes list so must be seperated
+
+        foreach (GrammarNode _node in ProcessNodes) // _node.ProcessRule modifies the Nodes list so must be seperated from the main List<GrammarNode>
         {
             _node.ProcessRule();
         }
+
         Debug.Log("......Done");
         Debug.Log("...Done");
 
         RepositionNodes(); // Reposition nodes after everythings been messed with
+        RegenerateRooms();
     }
 
     public void RepositionNodes()
@@ -136,7 +144,7 @@ public class GrammarDungeon : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        if (Application.isEditor && this.enabled)
+        if (DebugMode && Application.isEditor && this.enabled)
         {
             foreach(NodeConnection i in NodeConnections)
             {

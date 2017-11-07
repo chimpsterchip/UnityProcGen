@@ -14,7 +14,8 @@ public class GrammarRuleSet : MonoBehaviour {
         reward,
         chest,
         bossFight,
-        exit
+        exit,
+        puzzle
     };
 
     public GrammarRule[] Rules;
@@ -45,7 +46,7 @@ public class GrammarRuleSet : MonoBehaviour {
         }
         else
         {
-            int RandInt = Random.Range(0, MatchingRules.Count - 1);
+            int RandInt = Random.Range(0, MatchingRules.Count);
             return MatchingRules[RandInt];
         }
     }

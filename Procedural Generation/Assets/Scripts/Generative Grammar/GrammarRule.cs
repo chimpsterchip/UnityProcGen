@@ -26,8 +26,8 @@ public class GrammarRule : MonoBehaviour {
     public NodeInfo[] ReplacementNodes;
     [Tooltip("Relative connection of the nodes within the rule (Only ids are required)")]
     public GrammarDungeon.NodeConnection[] Connections;
-    [Tooltip("What node to attach the parent nodes to")]
-    public int StartNode;
-    [Tooltip("What node to attach the child nodes to")]
-    public int EndNode;
+    //[Tooltip("What node to attach the parent nodes to")]
+    //public int StartNode;
+    //[Tooltip("What node to attach the child nodes to")]
+    //public int EndNode;
 }

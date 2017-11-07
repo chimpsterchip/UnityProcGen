@@ -51,20 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3968dcf052572a54dba1ac2d6e69bae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConditionSymbol: 1
+  ConditionSymbol: 2
   ReplacementNodes:
   - id: 0
-    Symbol: 2
+    Symbol: 3
     Offset: {x: 17, y: 0, z: 0}
     AttachParent: 1
     AttachChild: 0
   - id: 1
-    Symbol: 2
+    Symbol: 5
     Offset: {x: 0, y: 0, z: 17}
     AttachParent: 0
     AttachChild: 0
   - id: 2
-    Symbol: 4
+    Symbol: 3
     Offset: {x: 17, y: 0, z: 0}
     AttachParent: 0
     AttachChild: 1

@@ -43,7 +43,12 @@ public class CellularAutomata : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
+    {
+        Init();
+    }
+
+    void Init()
     {
         Tiles = new Tile[RoomWidth, RoomHeight];
         RoomTiles = new List<GameObject>();
@@ -66,7 +71,7 @@ public class CellularAutomata : MonoBehaviour
 
     public void GenerateRoom()
     {
-        
+        if (RoomTiles == null) Init();
         ClearRoom();
         FillRandom();
 
@@ -84,7 +89,6 @@ public class CellularAutomata : MonoBehaviour
 
     public void DrawRoom()
     {
-        ClearRoom();
         float ScaleValue = 10 * Floor.transform.localScale.x;
         Vector3 AdjustVec = new Vector3(RoomWidth / 2 * ScaleValue, 0f, RoomHeight / 2 * ScaleValue);
         for (int i = 0; i < RoomWidth; ++i)
@@ -117,25 +121,20 @@ public class CellularAutomata : MonoBehaviour
             foreach(GrammarNode Child in Children)
             {
                 Vector3 Direction = Child.transform.position - transform.position;
-                print(name + " " + Direction.ToString());
                 if(Direction.x > 0)
                 {
-                    print(Direction.x + " Right");
                     Connectors.RIGHT = true;
                 }
                 else if(Direction.x < 0)
                 {
-                    print(Direction.x + " Left");
                     Connectors.LEFT = true;
                 }
                 else if (Direction.z > 0)
                 {
-                    print(Direction.z + " Up");
                     Connectors.UP = true;
                 }
                 else if (Direction.z < 0)
                 {
-                    print(Direction.z + " Up");
                     Connectors.DOWN = true;
                 }
             }
@@ -143,25 +142,20 @@ public class CellularAutomata : MonoBehaviour
             foreach (GrammarNode Parent in Parents)
             {
                 Vector3 Direction = Parent.transform.position - transform.position;
-                print(name + " " + Direction.ToString());
                 if (Direction.x > 0)
                 {
-                    print(Direction.x + " Right");
                     Connectors.RIGHT = true;
                 }
                 else if (Direction.x < 0)
                 {
-                    print(Direction.x + " Left");
                     Connectors.LEFT = true;
                 }
                 else if (Direction.z > 0)
                 {
-                    print(Direction.z + " Up");
                     Connectors.UP = true;
                 }
                 else if (Direction.z < 0)
                 {
-                    print(Direction.z + " Down");
                     Connectors.DOWN = true;
                 }
             }

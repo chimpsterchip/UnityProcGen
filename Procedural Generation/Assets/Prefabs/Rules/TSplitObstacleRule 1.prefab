@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4389032725746712}
   - component: {fileID: 114079106055709634}
   m_Layer: 0
-  m_Name: TSplitObstacleRule
+  m_Name: TSplitObstacleRule 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,12 +54,12 @@ MonoBehaviour:
   ConditionSymbol: 4
   ReplacementNodes:
   - id: 0
-    Symbol: 1
+    Symbol: 3
     Offset: {x: 17, y: 0, z: 0}
     AttachParent: 1
     AttachChild: 0
   - id: 1
-    Symbol: 6
+    Symbol: 9
     Offset: {x: 0, y: 0, z: 17}
     AttachParent: 0
     AttachChild: 0
@@ -68,6 +68,11 @@ MonoBehaviour:
     Offset: {x: 0, y: 0, z: -17}
     AttachParent: 0
     AttachChild: 1
+  - id: 3
+    Symbol: 5
+    Offset: {x: 17, y: 0, z: 0}
+    AttachParent: 0
+    AttachChild: 0
   Connections:
   - Node1: {fileID: 0}
     Node2: {fileID: 0}
@@ -77,3 +82,7 @@ MonoBehaviour:
     Node2: {fileID: 0}
     p1: 0
     p2: 2
+  - Node1: {fileID: 0}
+    Node2: {fileID: 0}
+    p1: 1
+    p2: 3
