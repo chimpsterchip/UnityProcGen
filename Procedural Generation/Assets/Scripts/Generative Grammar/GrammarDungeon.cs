@@ -146,7 +146,7 @@ public class GrammarDungeon : MonoBehaviour {
     {
         if (DebugMode && Application.isEditor && this.enabled)
         {
-            foreach(NodeConnection i in NodeConnections)
+            foreach(NodeConnection connection in NodeConnections)
             {
                 Gizmos.DrawLine(i.Node1.transform.position, i.Node2.transform.position);
             }
