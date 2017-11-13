@@ -12,9 +12,13 @@ public class GrammarNode : MonoBehaviour {
     GrammarRuleSet RuleSet;
     GrammarRule Rule;
 
+    public int ID;
+
     public List<GrammarNode> Parents;
     public List<GrammarNode> Children;
     public Vector3 RelativePosition; // Its Position in relation to the parent or its world position if no parent
+
+    public bool Marked = false;
 
 	// Use this for initialization
 	void Start () {

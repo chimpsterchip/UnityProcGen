@@ -289,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CellularAutomataEditor.cs" />
+    <Compile Include="Assets\Editor\DungeonEvaluationEditor.cs" />
     <Compile Include="Assets\Editor\GrammarDungeonEditor.cs" />
   </ItemGroup>
   <ItemGroup>

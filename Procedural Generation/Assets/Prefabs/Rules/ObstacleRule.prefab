@@ -64,7 +64,7 @@ MonoBehaviour:
     AttachParent: 0
     AttachChild: 0
   - id: 2
-    Symbol: 3
+    Symbol: 1
     Offset: {x: 17, y: 0, z: 0}
     AttachParent: 0
     AttachChild: 1
@@ -77,5 +77,3 @@ MonoBehaviour:
     Node2: {fileID: 0}
     p1: 1
     p2: 2
-  StartNode: 0
-  EndNode: 1

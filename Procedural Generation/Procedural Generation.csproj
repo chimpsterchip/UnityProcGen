@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CellularAutomata.cs" />
+    <Compile Include="Assets\Scripts\DungeonEvaluation.cs" />
     <Compile Include="Assets\Scripts\Generative Grammar\GrammarDungeon.cs" />
     <Compile Include="Assets\Scripts\Generative Grammar\GrammarNode.cs" />
     <Compile Include="Assets\Scripts\Generative Grammar\GrammarRule.cs" />
